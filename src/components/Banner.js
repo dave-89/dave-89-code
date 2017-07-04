@@ -1,41 +1,34 @@
 import React, {PropTypes} from 'react';
 
+import BannerButton from './BannerButton';
+
 class Banner extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pages: this.props.pages,
-      handler: this.props.handler,
-      active: this.props.active
-    };
   }
 
   getWidth() {
-    const l = this.state.pages.length;
-    const size = 100./l;
+    const l = this.props.pages.length;
+    const size = 100. / l;
     return size + '%';
   }
 
   render() {
-    var style = {width:this.getWidth()};
-    const active = this.state.active;
+    const commonStyle = {
+      width: this.getWidth(),
+      display: 'inline-block',
+      position: 'relative',
+      float: 'left',
+      height: 'inherit',
+      border: '3px solid #73AD21'
+    };
+    const active = this.props.active;
     return (
       <div className="Banner">
-        {this.state.pages.map(page => {
-          if(page.title == active) {
-            alert(active);
-            style.backgroundColor = 'red';
-          } else {
-            style.backgroundColor = 'powderblue';
-          }
-          debugger;
-          return (<button
-          style={style}
-          className="headerButton"
-          key={page.id}
-          onClick={() => this.state.handler(page.title)}>
-          {page.title}
-        </button>)})}
+        {this.props.pages.map(page => {
+          const color = page.title == active ? 'red' : 'blue';
+          return(<BannerButton buttonStyle={commonStyle} key={page.id} handler={() => this.props.handler(page.title)} title={page.title} color={color}/>);
+        })}
       </div>
     );
   }

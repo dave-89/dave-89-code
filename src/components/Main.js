@@ -29,7 +29,6 @@ class Main extends React.Component {
       alert('wrong page');
     } else {
       this.setState({active : page});
-      this.forceUpdate();
     }
   }
 
